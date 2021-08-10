@@ -1,5 +1,5 @@
 <template>
-  <div class="goods-item">
+  <div class="goods-item" @click="itemClick">
     <!-- 从goodsItem里面找到img放到这里 -->
     <img :src="goodsItem.show.img" alt="">
     <div class="goods-info">
@@ -20,6 +20,13 @@
         default() {
           return {}
         }
+      }
+    },
+    methods: {
+      itemClick() {
+        //进行路由跳转 
+        //动态路由
+        this.$router.push('/detail/' + this.goodsItem.iid)
       }
     }
   }
