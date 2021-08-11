@@ -1,16 +1,17 @@
 <template>
   <div id="home">
     <nav-bar class="home-nav"><div slot="center">购物街</div></nav-bar>
+    <tab-control  :titles= "['流行','新款','精选']" @tabClick="tabClick" ref="tabControl1" class="tab-control" v-show="isTabFixed"></tab-control>
     <scroll class="content" 
             ref="scroll" 
             v-bind:probe-type="3" 
             @scroll="contentScroll" 
             v-bind:pull-up-load="true"
-            @pullingUp="loadMore">
-      <home-swiper :banner="banner"/>
+            @pullingUp="loadMore"> 
+      <home-swiper :banner="banner" @swiperImageLoad="swiperImageLoad" />
       <recommend-view :recommends="recommends"/>
       <feature-view/>
-      <tab-control class="tab-control" :titles= "['流行','新款','精选']" @tabClick="tabClick"></tab-control>
+      <tab-control  :titles= "['流行','新款','精选']" @tabClick="tabClick" ref="tabControl2" ></tab-control>
       <!-- 从currentType里面取出list放到goods里面 -->
       <goods-list :goods="goods[currentType].list"/>
     </scroll>
@@ -47,7 +48,7 @@
     name: "Home",
     // 进行注册
     components: {
-      
+
       HomeSwiper,
       RecommendView,
       FeatureView,
@@ -72,8 +73,20 @@
         // 默认刚开始时显示的是流行的页面
         currentType: 'pop',
         //使用一个变量来判断是否显示回到顶部按钮
-        isShowBack: false 
+        isShowBack: false,
+        tabOffsetTop: 0,
+        isTabFixed:false,
+        saveY: 0
       }
+    },
+    activated () {
+      //this.$refs.scroll.refresh()
+      //console.log(this.saveY);
+      //this.$refs.scroll.scrollTo(0,this.saveY,0)
+      
+    },
+    deactivated () {
+      this.saveY = this.$refs.scroll.getScrollY()
     },
     //组件创建好之后就可以发送网络请求
     //实现一个生命周期函数
@@ -85,6 +98,10 @@
       this.getHomeGoods('new')
       this.getHomeGoods('sell')
     },
+    //挂载
+    // mounted () {
+
+    // },
     methods: {
       //事件监听相关的方法
        tabClick(index) {
@@ -99,7 +116,9 @@
           case 2:
             this.currentType = 'sell'
          }
-
+         //让tabcontrol的currentIndex与最新点击的index保持一致
+          this.$refs.tabControl1.currentIndex = index;
+          this.$refs.tabControl2.currentIndex = index;
        },
        //在方法里面对backtop的监听使用
        backClick() {
@@ -109,13 +128,23 @@
          this.$refs.scroll.scrollTo(0,0)
        },
        contentScroll(position) {
-         //判断滚动位置是否大于1000 若大于则isShowBack为true 即显示返回顶部按钮
+         //1.判断滚动位置是否大于1000 若大于则isShowBack为true 即显示返回顶部按钮
          this.isShowBack = (-position.y) > 1000
+
+         //2.判断tabControl是否吸顶（position：fixed）
+         this.isTabFixed = (-position.y) > this.tabOffsetTop-10
        },
        loadMore() {
          this.getHomeGoods(this.currentType)
         
         // this.$refs.scroll.scroll.refresh()
+       },
+       swiperImageLoad(){
+          //获取tabControl的offsetTop
+          //所有的组件都有一个属性$el：用于获取组件中的元素
+          //当轮播图加载完成后打印offsettop的值
+          // console.log(this.$refs.tabControl.$el.offsetTop)  
+          this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop;
        },
       // 网络请求相关的方法
       getHomeMultidata() {
@@ -131,6 +160,7 @@
           this.goods[type].list.push(...res.data.list)
           this.goods[type].page += 1
 
+          //完成上拉加载更多
           this.$refs.scroll.finishPullUp()
       })
       }
@@ -140,7 +170,7 @@
 
 <style scoped>
   #home {
-    padding-top: 44px;
+    /* padding-top: 44px; */
     /* 视口高度 */
     height: 100vh;
   }
@@ -149,16 +179,22 @@
     background-color: var(--color-tint);
     color: #ffffff;
     /* 使顶部导航栏固定定位 滚动屏幕时不动 */
-    position: fixed;
+    /* position: fixed;
     left: 0px;
     right: 0px;
     top: 0px;
-    z-index: 9;
+    z-index: 9; */
   }
   .tab-control {
-    position: sticky;
-    top: 44px;
+    position: relative;
+    z-index: 9;
   }
+  /* .fixed {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 44px;
+  } */
   .content {
     height: calc(100% - 50px);
     overflow: hidden;

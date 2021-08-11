@@ -22,7 +22,8 @@
       //设置pullupload属性 即上拉加载更多属性 默认是false 
       pullUpLoad: {
         type: Boolean,
-        default: false
+        // default: false,
+        default: true
       }
     },
     data () {
@@ -40,18 +41,21 @@
             click: true,
             //解决better-scroll滑动bug问题
             observeDOM: true,
+            observeImage: true,
             probeType: this.probeType,
-            pullUpLoad: this.pullUpLoad
+            pullUpLoad: this.pullUpLoad,
+            keepAlive:true
           })
           //回到顶部
          // this.scroll.scrollTo(0,0)
 
-          //2、监听滚动的位置
-          this.scroll.on('scroll', (position) => {
+          //2、监听滚动的位置(当probetype=2或3时才要监听)
+         if (this.probeType === 2 || this.probeType === 3){
+            this.scroll.on('scroll', (position) => {
             //自定义一个事件 然后将事件发送出去 
             this.$emit('scroll', position)
           })
-
+         }
           //3、监听上拉事件
           this.scroll.on('pullingUp', () => {
             // console.log('上拉加载更多');
@@ -67,6 +71,9 @@
       //定义完成上拉操作的方法
       finishPullUp() {
         this.scroll.finishPullUp()
+      },
+      getScrollY() {
+        return this.scroll ? this.scroll.y : 0
       }
     }
   }

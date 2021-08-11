@@ -1,7 +1,7 @@
 <template>
-  <div class="goods-item">
+  <div class="goods-item" @click="itemClick">
     <!-- 从goodsItem里面找到img放到这里 -->
-    <img :src="goodsItem.show.img" alt="">
+    <img :src="showImage" alt="">
     <div class="goods-info">
       <!-- 从goodsItem里面找到title price 收藏 放到这里 -->
       <p>{{goodsItem.title}}</p>
@@ -20,6 +20,19 @@
         default() {
           return {}
         }
+      }
+    },
+    // 计算属性  判断取哪里的图片  ||为懒运算，如果左边为true就不用管右边
+    computed: {
+      showImage() {
+        return this.goodsItem.image || this.goodsItem.show.img
+      }
+    },
+    methods: {
+      itemClick() {
+        //进行路由跳转 
+        //动态路由
+        this.$router.push('/detail/' + this.goodsItem.iid)
       }
     }
   }
