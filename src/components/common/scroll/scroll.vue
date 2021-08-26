@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import BScroll from 'better-scroll'
+  import BScroll from 'better-scroll' 
   import ObserveDOM from '@better-scroll/observe-dom'
   BScroll.use(ObserveDOM)
 
@@ -65,8 +65,12 @@
       })
     },
     methods: {
-      scrollTo(x,y,time=500) {
-        this.scroll.scrollTo(x,y,time)
+      refresh() {
+        this.scroll && this.scroll.refresh && this.scroll.refresh()
+      },
+      scrollTo(x, y, time) {
+        // this.scroll.scrollTo(x, y, time)
+        this.scroll && this.scroll.scrollTo && this.scroll.scrollTo(x, y, time)
       },
       //定义完成上拉操作的方法
       finishPullUp() {

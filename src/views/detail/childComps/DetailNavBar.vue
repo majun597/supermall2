@@ -19,11 +19,13 @@
 
 <script>
   import NavBar from '../../../components/common/navbar/NavBar'
+  import scroll from '../../../components/common/scroll/scroll'
 
   export default {
     name: "DetailNavBar",
     components: {
-      NavBar
+      NavBar,
+      scroll
     },
     data () {
       return {
@@ -33,7 +35,8 @@
     },
     methods: {
       titleClick(index) {
-        this.currentIndex = index
+        this.currentIndex = index;
+        this.$emit('titleClick', index);
       },
       //先监听点击 然后返回上一页
       backClick() {

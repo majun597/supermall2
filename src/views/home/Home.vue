@@ -74,18 +74,18 @@
         currentType: 'pop',
         //使用一个变量来判断是否显示回到顶部按钮
         isShowBack: false,
-        tabOffsetTop: 0,
+        tabOffsetTop: 0, 
         isTabFixed:false,
         saveY: 0
       }
     },
-    activated () {
+    activated: function () {
       //this.$refs.scroll.refresh()
       //console.log(this.saveY);
-      //this.$refs.scroll.scrollTo(0,this.saveY,0)
+      this.$refs.scroll.scrollTo(0,this.saveY,0)
       
     },
-    deactivated () {
+    deactivated: function () {
       this.saveY = this.$refs.scroll.getScrollY()
     },
     //组件创建好之后就可以发送网络请求
@@ -125,7 +125,7 @@
          //方法一：此处先是拿到scroll组件 然后拿到scroll属性 然后调用scroll里面的回到顶部的方法  最后一个500代表500ms内返回顶部
          //this.$refs.scroll.scroll.scrollTo(0,0,500)
          //方法二：此处先是拿到scroll组件 然后调用scroll里面的回到顶部的方法 
-         this.$refs.scroll.scrollTo(0,0)
+         this.$refs.scroll.scrollTo(0, 0, 300)
        },
        contentScroll(position) {
          //1.判断滚动位置是否大于1000 若大于则isShowBack为true 即显示返回顶部按钮
