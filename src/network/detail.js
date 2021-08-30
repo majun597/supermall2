@@ -9,6 +9,7 @@ export function getDetail(iid) {
     })
 }
 
+<<<<<<< HEAD
 export function getRecommend() {
     return request({
         url: '/recommend',
@@ -16,6 +17,8 @@ export function getRecommend() {
     })
 }
 
+=======
+>>>>>>> 1168558327fc4ac46f4ce771852a55fc906462ec
 //把很多从服务器请求到的数据封装到一个类里面
 //再创建对应这个类的对象
 //然后用对象传到下一个组件里面

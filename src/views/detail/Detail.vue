@@ -1,7 +1,14 @@
+<<<<<<< HEAD
  <template>
   <div id="detail">
     <detail-nav-bar class="detail-nav" @titleClick="titleClick" ref="nav"/>
     <scroll class="content" ref="scroll" :probeType="3" @scroll="contentScroll">
+=======
+<template>
+  <div id="detail">
+    <detail-nav-bar class="detail-nav"/>
+    <scroll class="content">
+>>>>>>> 1168558327fc4ac46f4ce771852a55fc906462ec
         <!-- 传入请求到的轮播图数据 -->
         <detail-swiper :top-images="topImages"/>
         <!-- 传入请求到的商品信息数据 -->
@@ -11,6 +18,7 @@
         <!-- 传入请求到的商品详细数据 -->
         <detail-goods-info :detail-info="detailInfo"/>
         <!-- 传入请求到的商品参数数据 -->
+<<<<<<< HEAD
         <detail-param-info ref="params" :param-info="paramInfo"/>
         <!-- 传入请求到的商品评论数据 -->
         <detail-comment-info ref="comment" :comment-info="commentInfo" />
@@ -20,6 +28,10 @@
     <back-top @click.native = "backClick" v-show="isShowBack" />
     <detail-bottom-bar @addCart="addToCart"/>
     <toast :message="message" :show="show"/>
+=======
+        <detail-param-info :param-info="paramInfo"/>
+    </scroll>
+>>>>>>> 1168558327fc4ac46f4ce771852a55fc906462ec
   </div>
 </template>
 
@@ -30,6 +42,7 @@
   import DetailShopInfo from './childComps/DetailShopInfo'
   import DetailGoodsInfo from './childComps/DetailGoodsInfo'
   import DetailParamInfo from './childComps/DetailParamInfo'
+<<<<<<< HEAD
   import DetailCommentInfo from './childComps/DetailCommentInfo'
   import DetailBottomBar from './childComps/DetailBottomBar'
   import BackTop from '../../components/common/backTop/BackTop'
@@ -42,6 +55,15 @@
 
   export default {
     name: "Detail", 
+=======
+
+  import scroll from '../../components/common/scroll/scroll'
+
+  import {getDetail, Goods, Shop, GoodsParam} from "../../network/detail"
+
+  export default {
+    name: "Detail",
+>>>>>>> 1168558327fc4ac46f4ce771852a55fc906462ec
     components: {
       DetailNavBar,
       DetailSwiper,
@@ -49,12 +71,16 @@
       DetailShopInfo,
       DetailGoodsInfo,
       DetailParamInfo,
+<<<<<<< HEAD
       DetailCommentInfo,
       DetailBottomBar,
       Toast,
       BackTop,
       scroll,
       GoodsList
+=======
+      scroll
+>>>>>>> 1168558327fc4ac46f4ce771852a55fc906462ec
     },
     data () {
       return {
@@ -63,6 +89,7 @@
         goods: {},
         shop: {},
         detailInfo: {},
+<<<<<<< HEAD
         paramInfo: {},
         commentInfo: {},
         recommends:[],
@@ -138,6 +165,11 @@
 
        }
     },
+=======
+        paramInfo: {}
+      }
+    },
+>>>>>>> 1168558327fc4ac46f4ce771852a55fc906462ec
     created () {
       //1. 保存传入的iid
       this.iid = this.$route.params.iid
@@ -156,6 +188,7 @@
         this.detailInfo = data.detailInfo;
         //5.获取商品参数数据
         this.paramInfo = new GoodsParam(data.itemParams.info, data.itemParams.rule)
+<<<<<<< HEAD
         //6、获取商品的评论信息
         if (data.rate.cRate !== 0) {
           this.commentInfo = data.rate.list[0]
@@ -197,6 +230,9 @@
     },
     mounted () {
       
+=======
+      })
+>>>>>>> 1168558327fc4ac46f4ce771852a55fc906462ec
     }
   }
 </script>
@@ -214,6 +250,10 @@
     z-index: 9;
   }
   .content {
+<<<<<<< HEAD
     height: calc(100% - 44px - 49px);
+=======
+    height: calc(100% - 44px);
+>>>>>>> 1168558327fc4ac46f4ce771852a55fc906462ec
   }
 </style>

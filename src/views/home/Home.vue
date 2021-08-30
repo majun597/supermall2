@@ -74,11 +74,16 @@
         currentType: 'pop',
         //使用一个变量来判断是否显示回到顶部按钮
         isShowBack: false,
+<<<<<<< HEAD
         tabOffsetTop: 0, 
+=======
+        tabOffsetTop: 0,
+>>>>>>> 1168558327fc4ac46f4ce771852a55fc906462ec
         isTabFixed:false,
         saveY: 0
       }
     },
+<<<<<<< HEAD
     activated: function () {
       //this.$refs.scroll.refresh()
       //console.log(this.saveY);
@@ -86,6 +91,14 @@
       
     },
     deactivated: function () {
+=======
+    activated () {
+      //this.$refs.scroll.refresh()
+      // this.$refs.scroll.scrollTo(0,this.saveY)
+      
+    },
+    deactivated () {
+>>>>>>> 1168558327fc4ac46f4ce771852a55fc906462ec
       this.saveY = this.$refs.scroll.getScrollY()
     },
     //组件创建好之后就可以发送网络请求

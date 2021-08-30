@@ -7,6 +7,7 @@ export function debounce(func, delay) {
             func.apply(this, args)
         }, delay)
     }
+<<<<<<< HEAD
 }
 
 
@@ -41,3 +42,6 @@ function padLeftZero(str) {
     //若数字小于10 则前面补0
     return ('00' + str).substr(str.length);
 };
+=======
+}
+>>>>>>> 1168558327fc4ac46f4ce771852a55fc906462ec

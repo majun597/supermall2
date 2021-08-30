@@ -12,8 +12,13 @@
     </div>
   </div>
 </template>
+<<<<<<< HEAD
  
 <script> 
+=======
+
+<script>
+>>>>>>> 1168558327fc4ac46f4ce771852a55fc906462ec
 	export default {
 		name: "DetailGoodsInfo",
     props: {
@@ -77,7 +82,11 @@
     background-color: #333;
     bottom: 0;
   }
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> 1168558327fc4ac46f4ce771852a55fc906462ec
   .info-desc .end::after {
     right: 0;
   }

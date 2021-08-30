@@ -22,12 +22,15 @@
         }
       }
     },
+<<<<<<< HEAD
     // 计算属性  判断取哪里的图片  ||为懒运算，如果左边为true就不用管右边
     computed: {
       showImage() {
         return this.goodsItem.image || this.goodsItem.show.img
       }
     },
+=======
+>>>>>>> 1168558327fc4ac46f4ce771852a55fc906462ec
     methods: {
       itemClick() {
         //进行路由跳转 
